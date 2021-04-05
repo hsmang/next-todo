@@ -4,11 +4,11 @@ import reset from "styled-reset";
 const globalStyle = css`
     ${reset};
 
-    *{
+    * {
         box-sizing: border-box;
     }
     body {
-        font-family: Noto sans, Noto Sans KR;
+        font-family: Noto Sans, Noto Sans KR;
     }
     
 `;

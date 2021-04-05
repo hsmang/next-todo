@@ -22,12 +22,25 @@ const Container = styled.div`
 `;
 
 
+
 interface IProps {
     todos: TodoType[];
 }
 
-const TodoList: React.FC<IProps> = ({todos}) => {
-    
+const getTodoColorNums = () => {
+    let red = 0;
+    let orange = 0;
+    let yellow = 0;
+    let green = 0;
+    let blue = 0;
+    let navy = 0;
+    todos.forEach((todo) => {
+
+    })
+}
+
+const TodoList: React.FC<IProps> = ({ todos }) => {
+
 
     return (
         <Container>
@@ -35,7 +48,7 @@ const TodoList: React.FC<IProps> = ({todos}) => {
                 <p className="todo-list-last-todo">
                     남은 TODO<span>{todos.length}개</span>
                 </p>
-            </div> 
+            </div>
         </Container>
     )
 };

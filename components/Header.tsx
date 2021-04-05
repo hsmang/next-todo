@@ -7,7 +7,7 @@ const Container = styled.div`
     align-items: center;
     width: 100%;
     height: 52px;
-    padding: 0 12px;
+    padding: 0 12px;    
     border-bottom: 1px solid ${palette.gray};
     h1{
         font-size: 21px;
@@ -17,7 +17,7 @@ const Container = styled.div`
 const Header: React.FC = () => {
     return (
         <Container>
-            <h1>Jerrynim's TodoList</h1>
+            <h1>Jerrynim's TodoLists</h1>
         </Container>
     )
 };
