@@ -3,8 +3,12 @@ import styled from "styled-components";
 import palette from "../styles/palette";
 import { TodoType } from "../types/todo";
 import { checkTodoAPI, deleteTodoAPI } from "../lib/api/todo";
+import { useSelector } from "../store";
+import { RootState } from "../store";
+import { useDispatch } from "react-redux";
 import TrashCanIcon from "../public/statics/svg/trash_can.svg";
 import CheckMarkIcon from "../public/statics/svg/check_mark.svg";
+import { todoActions } from "../store/todo";
 
 
 
@@ -147,11 +151,14 @@ type ObjectIndexType = {
 
 
 
-const TodoList: React.FC<IProps> = ({ todos }) => {
 
 
+// const TodoList: React.FC<IProps> = ({ todos }) => {
+const TodoList: React.FC = () => {
+
+    const todos = useSelector((state) => state.todo.todos);
     const [localTodos, setLocalTodos] = useState(todos);
-
+    const dispatch = useDispatch();
     //* 투두 체크하기
     const checkTodo = async (id: number) => {
         try {
@@ -164,7 +171,7 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
                 }
                 return todo;
             })
-
+            dispatch(todoActions.setTodo(newTodos));
             setLocalTodos(newTodos);
 
         } catch (e) {
@@ -177,6 +184,7 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
         try {
             await deleteTodoAPI(id);
             const newTodos = localTodos.filter((todo) => todo.id !== id);
+            dispatch(todoActions.setTodo(newTodos));
             setLocalTodos(newTodos);
             console.log("삭제했습니다.");
         } catch (e) {
@@ -286,7 +294,7 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
                             )}
                             {!todo.checked && (
                                 <button type="button" className="todo-button"
-                                    onClick={() => { }}
+                                    onClick={() => {checkTodo(todo.id); }}
                                 />
                             )}
                         </div>
