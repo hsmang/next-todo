@@ -140,10 +140,6 @@ const Container = styled.div`
 
 
 
-interface IProps {
-    todos: TodoType[];
-}
-
 //* 객체의 문자열 인덱스 사용을 위한 타입
 type ObjectIndexType = {
     [key: string]: number | undefined;
@@ -157,7 +153,7 @@ type ObjectIndexType = {
 const TodoList: React.FC = () => {
 
     const todos = useSelector((state) => state.todo.todos);
-    const [localTodos, setLocalTodos] = useState(todos);
+    //const [localTodos, setLocalTodos] = useState(todos);
     const dispatch = useDispatch();
     //* 투두 체크하기
     const checkTodo = async (id: number) => {
@@ -165,14 +161,14 @@ const TodoList: React.FC = () => {
             await checkTodoAPI(id);
 
 
-            const newTodos = localTodos.map((todo) => {
+            const newTodos = todos.map((todo) => {
                 if (todo.id === id) {
                     return { ...todo, checked: !todo.checked };
                 }
                 return todo;
             })
             dispatch(todoActions.setTodo(newTodos));
-            setLocalTodos(newTodos);
+            //setLocalTodos(newTodos);
 
         } catch (e) {
             console.log(e);
@@ -183,9 +179,9 @@ const TodoList: React.FC = () => {
     const deleteTodo = async (id: number) => {
         try {
             await deleteTodoAPI(id);
-            const newTodos = localTodos.filter((todo) => todo.id !== id);
+            const newTodos = todos.filter((todo) => todo.id !== id);
             dispatch(todoActions.setTodo(newTodos));
-            setLocalTodos(newTodos);
+            //setLocalTodos(newTodos);
             console.log("삭제했습니다.");
         } catch (e) {
             console.log(e);
@@ -204,7 +200,7 @@ const TodoList: React.FC = () => {
         let green = 0;
         let blue = 0;
         let navy = 0;
-        localTodos.forEach((todo) => {
+        todos.forEach((todo) => {
             switch (todo.color) {
                 case "red":
                     red += 1;
@@ -240,12 +236,13 @@ const TodoList: React.FC = () => {
         };
     }, [todos]);
 
+
     console.log(todoColorNums);
 
     //* 색깔 객체 구하기 2
     const todoColorNums2 = useMemo(() => {
         const colors: ObjectIndexType = {};
-        localTodos.forEach((todo) => {
+        todos.forEach((todo) => {
             const value = colors[todo.color];
             if (!value) {
                 //*존재하지 않던 key라면
@@ -277,7 +274,7 @@ const TodoList: React.FC = () => {
                 </div>
             </div>
             <ul className="todo-list">
-                {localTodos.map((todo) => (
+                {todos.map((todo) => (
                     <li className="todo-item" key={todo.id}>
                         <div className="todo-left-side">
                             <div className={`todo-color-block bg-${todo.color}`} />
@@ -294,7 +291,7 @@ const TodoList: React.FC = () => {
                             )}
                             {!todo.checked && (
                                 <button type="button" className="todo-button"
-                                    onClick={() => {checkTodo(todo.id); }}
+                                    onClick={() => { checkTodo(todo.id); }}
                                 />
                             )}
                         </div>

@@ -5,7 +5,7 @@ import { TodoType } from "../types/todo";
 import Axios from "axios";
 import { getTodosAPI } from "../lib/api/todo";
 import { wrapper } from "../store";
-import { todoActions} from "../store/todo";
+import { todoActions } from "../store/todo";
 
 // interface IProps {
 //     todos: TodoType[];
@@ -19,25 +19,24 @@ import { todoActions} from "../store/todo";
 // };
 
 const app: NextPage = () => {
-    return <TodoList  />;
+    return <TodoList />;
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
-    async({store}) => {
+    async ({ store }) => {
+        console.log("store");
         console.log(store);
         try {
             const { data } = await getTodosAPI();
             store.dispatch(todoActions.setTodo(data));
+            console.log("data : ");
             console.log(data);
-            return { props: { todos: data } };
+            return { props: {} };
         } catch (e) {
             console.log(e);
             return { props: {} };
         }
     }
 )
-
-
-
 
 export default app;

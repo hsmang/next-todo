@@ -30,12 +30,13 @@ const todo = createSlice({
     name: "todo",
     initialState,
     reducers: {
-        //* 투두 변경하기
-        setTodo(state, action: PayloadAction<TodoType[]>){
+        //* 투두 변경하기 , 리덕스 수정하기 기능
+        setTodo(state, action: PayloadAction<TodoType[]>) {
             state.todos = action.payload;
         },
     },
 });
+
 
 export const todoActions = { ...todo.actions };
 

@@ -1,5 +1,5 @@
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
-import { configureStore,  combineReducers } from "@reduxjs/toolkit";
+import { configureStore, ombineReducers } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector as useReduxSelector, } from "react-redux";
 import todo from "./todo";
 
@@ -7,11 +7,12 @@ const rootReducer = combineReducers({
     todo: todo.reducer,
 })
 
-export const useSelector : TypedUseSelectorHook<RootState> = useReduxSelector;
+// 10%이해함
+export const useSelector TypedUseSelectorHook<RootState> = useReduxSelector;
 
 //* 타입 지원되는 커스텀 useSelector 만들기
 declare module 'react-redux' {
-    interface DefaultRootState extends RootState {}
+    interface DefaultRootState extends RootState { }
 }
 
 const reducer = (state, action) => {
@@ -20,7 +21,7 @@ const reducer = (state, action) => {
             ...state,
             ...action.payload,
         };
-        if(state.count) nextState.count = state.count;
+        if (state.count) nextState.count = state.count;
         return nextState;
     }
     return rootReducer(state, action);
